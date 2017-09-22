@@ -1,5 +1,5 @@
 * Boot from Lein(ingen)
-**boot-from-lein** defines a [[http://boot-clj.com/][Boot]] task for configuring Boot via an existing
+*boot-from-lein* defines a [[http://boot-clj.com/][Boot]] task for configuring Boot via an existing
 ~project.clj~ file used in a Leiningen project.
 
 The rationale is that you'll often find yourself working in a Leiningen project
