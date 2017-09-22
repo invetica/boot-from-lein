@@ -12,14 +12,16 @@ and hence won't need boot-from-lein.
 * Contents                                                              :TOC:
 - [[#boot-from-leiningen][Boot from Lein(ingen)]]
 - [[#installation][Installation]]
-- [[#task-options][~task-options!~]]
-- [[#let-the-user-decide][Let the user decide]]
+- [[#roadmap][Roadmap]]
+  - [[#task-options][~task-options!~]]
+  - [[#let-the-user-decide][Let the user decide]]
 
 * Installation
 I've yet to cut a release of this library because I'm not certain the approach
 is optimal. See the list of TODO items below.
 
-* TODO ~task-options!~
+* Roadmap
+** TODO ~task-options!~
 Adding ~boot.core/task-options!~ inside the ~from-lein~ task results in an
 exception.
 
@@ -36,7 +38,7 @@ tasks may be useful?
 The question is do we add support for configuring existing Boot tasks from the
 Leiningen ~project.clj~?
 
-* TODO Let the user decide
+** TODO Let the user decide
 The ~from-lein~ task is somewhat opinionated about what configuration should be
 copied from Leiningen to Boot, and this may cause problems if people add a
 ~build.boot~ file with settings they want to prefer.
