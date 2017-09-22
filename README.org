@@ -1,0 +1,47 @@
+* Boot from Lein(ingen)
+**boot-from-lein** defines a [[http://boot-clj.com/][Boot]] task for configuring Boot via an existing
+~project.clj~ file used in a Leiningen project.
+
+The rationale is that you'll often find yourself working in a Leiningen project
+but want to make use of Boot's build pipeline because of things like the ability
+to run tasks like [[https://github.com/samestep/boot-refresh][refresh]] when changing a file.
+
+If you're starting a new project where Boot makes sense you won't need Leiningen
+and hence won't need boot-from-lein.
+
+* Contents                                                              :TOC:
+- [[#boot-from-leiningen][Boot from Lein(ingen)]]
+- [[#installation][Installation]]
+- [[#task-options][~task-options!~]]
+- [[#let-the-user-decide][Let the user decide]]
+
+* Installation
+I've yet to cut a release of this library because I'm not certain the approach
+is optimal. See the list of TODO items below.
+
+* TODO ~task-options!~
+Adding ~boot.core/task-options!~ inside the ~from-lein~ task results in an
+exception.
+
+#+begin_example
+java.lang.RuntimeException: Unable to resolve var: repl in this context
+clojure.lang.ExceptionInfo: Unable to resolve var: repl in this context
+#+end_example
+
+Without ~task-options!~ we can't augment tasks like ~repl~, ~aot~, ~jar~, and
+~pom~ as per the example task in the [[https://github.com/boot-clj/boot/wiki/Using-Boot-in-a-Leiningen-Project][boot wiki]]. Based on my use case this isn't
+an issue as I'd use Leiningen to build a JAR etc. but for other users these
+tasks may be useful?
+
+The question is do we add support for configuring existing Boot tasks from the
+Leiningen ~project.clj~?
+
+* TODO Let the user decide
+The ~from-lein~ task is somewhat opinionated about what configuration should be
+copied from Leiningen to Boot, and this may cause problems if people add a
+~build.boot~ file with settings they want to prefer.
+
+We use ~boot.core/merge-env!~ but maybe we should parse the Leiningen project
+and return a map of what's found so others can pick and choose what to
+merge/set/etc. I'm not sure it's possible to emit some map of information for
+downstream consumers to utilise.
