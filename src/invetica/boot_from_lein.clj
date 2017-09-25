@@ -86,21 +86,21 @@
    p profile      PROFILE str  "profile to use when reading project.clj"
    v verbose              bool "be more verbose"]
   (boot/merge-env! :dependencies '[[leiningen-core "2.7.1"]])
-  (boot/with-pass-thru fs
-    (let [project-file (or project-file
-                           (io/file (System/getProperty "user.dir")
-                                    "project.clj"))
-          {:keys [project] :as m} (from-lein* project-file profile)]
-      (when verbose (report-from-lein m))
-      ;; FIXME `repl` is not defined when the code below is uncommented. I'm
-      ;; guessing it's because of the use of `with-pass-thru` because it works
-      ;; in a `deftask` that ends with `clojure.core/identity.`
-      ;;
-      ;; (boot/task-options!
-      ;;  repl (:repl-options project {}))
-      (boot/merge-env!
-       :certificates (:certificates project)
-       :dependencies (:dependencies project)
-       :repositories (:repositories project)
-       :resource-paths (::resource-paths m)
-       :source-paths (::source-paths m)))))
+  (let [project-file (or project-file
+                         (io/file (System/getProperty "user.dir")
+                                  "project.clj"))
+        {:keys [project] :as m} (from-lein* project-file profile)]
+    (when verbose (report-from-lein m))
+    ;; FIXME `repl` is not defined when the code below is uncommented. I'm
+    ;; guessing it's because of the use of `with-pass-thru` because it works
+    ;; in a `deftask` that ends with `clojure.core/identity.`
+    ;;
+    ;; (boot/task-options!
+    ;;  repl (:repl-options project {}))
+    (boot/merge-env!
+     :certificates (:certificates project)
+     :dependencies (:dependencies project)
+     :repositories (:repositories project)
+     :resource-paths (::resource-paths m)
+     :source-paths (::source-paths m)))
+  identity)
